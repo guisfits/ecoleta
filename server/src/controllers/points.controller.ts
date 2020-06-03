@@ -2,6 +2,21 @@ import { Request, Response } from "express";
 import knex from "../database/connection";
 
 export default class PointsController {
+    async index(request: Request, response: Response) {
+        const { city, uf, items } = request.query;
+        const parsedItems = String(items).split(',').map(item => Number(item.trim()));
+
+        const points = await knex('points')
+            .join('points-items', 'points.id', '=', 'points-items.point_id')
+            .whereIn('points-items.item_id', parsedItems)
+            .where('city', String(city))
+            .where('uf', String(uf))
+            .distinct()
+            .select('points.*');
+
+        return response.json(points);
+    }
+
     async show(request: Request, response: Response) {
         const { id } = request.params;
 
