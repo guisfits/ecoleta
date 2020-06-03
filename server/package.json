@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node out/src/server.js",
     "dev": "ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
     "docker:up_database": "docker run --rm --name ecoleta-db -e POSTGRES_PASSWORD=rocketseat -e POSTGRES_USER=server -e POSTGRES_DB=ecoleta-db -p 5432:5432 -v ecoleta-volume:/var/lib.postgresql/data -d postgres",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
