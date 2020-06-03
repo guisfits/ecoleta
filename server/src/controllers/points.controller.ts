@@ -17,17 +17,19 @@ export default class PointsController {
         try {
             const trx = await knex.transaction();
 
+            const point = {
+                image: 'image-fake',
+                name,
+                email,
+                whatsapp,
+                latitude,
+                longitude,
+                city,
+                uf
+            };
+
             const insertedIds = await trx('points')
-                .insert({
-                    image: 'image-fake',
-                    name,
-                    email,
-                    whatsapp,
-                    latitude,
-                    longitude,
-                    city,
-                    uf
-                })
+                .insert(point)
                 .returning("id")
                 .into("points");
 
@@ -39,10 +41,19 @@ export default class PointsController {
 
             await trx('points-items').insert(pointItems);
 
-            return response.status(201).json({ success: true });
+            return response.status(201).json({ 
+                success: true,
+                data: {
+                    id: point_id,
+                    ...point
+                }
+            });
         }
         catch (err) {
-            return response.status(500).json({ success: false, error: err });
+            return response.status(500).json({ 
+                success: false, 
+                error: err 
+            });
         }
 
     }
