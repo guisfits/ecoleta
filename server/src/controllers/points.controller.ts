@@ -73,7 +73,7 @@ export default class PointsController {
 
             await trx('points-items').insert(pointItems);
 
-            trx.commit();
+            await trx.commit();
 
             return response.status(201).json({
                 success: true,
