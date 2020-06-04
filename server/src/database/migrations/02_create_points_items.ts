@@ -1,23 +1,15 @@
 import Knex from "knex";
 
 export async function up(knex: Knex) {
-    return knex.schema.createTable("points-items", table => {
-        table.increments('id')
-            .primary();
+  return knex.schema.createTable("points-items", (table) => {
+    table.increments("id").primary();
 
-        table.integer('point_id')
-            .notNullable()
-            .references('id')
-            .inTable('points');
+    table.integer("point_id").notNullable().references("id").inTable("points");
 
-        table.integer('item_id')
-            .notNullable()
-            .references('id')
-            .inTable('items');
-    })
+    table.integer("item_id").notNullable().references("id").inTable("items");
+  });
 }
 
 export async function down(knex: Knex) {
-    return knex.schema.dropTable('points-items');
+  return knex.schema.dropTable("points-items");
 }
-
