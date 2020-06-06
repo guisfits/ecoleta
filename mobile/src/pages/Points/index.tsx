@@ -1,8 +1,30 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Constants from 'expo-constants'
+import { Feather as Icon } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import MapView from 'react-native-maps'
 
 const Points = () => {
-  return <View></View>
+  const navigation = useNavigation();
+
+  function handlerNavigateBack() {
+    navigation.goBack();
+  }
+
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity onPress={handlerNavigateBack}>
+        <Icon name="arrow-left" size={20} color="#34cd09" ></Icon>
+      </TouchableOpacity>
+
+      <Text style={styles.title}>Bem vindo.</Text>
+
+      <View style={styles.mapContainer}>
+        <MapView style={styles.map}></MapView>
+      </View>
+    </View>
+  )
 }
 
 export default Points;
@@ -11,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 32,
-    // paddingTop: 20 + Constants.statusBarHeight,
+    paddingTop: 20 + Constants.statusBarHeight,
   },
 
   title: {
