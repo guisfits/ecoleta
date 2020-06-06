@@ -13,6 +13,7 @@ interface Params {
 interface Point {
   id: number;
   image: string;
+  image_url: string;
   name: string;
   email: string;
   whatsapp: string;
@@ -67,7 +68,7 @@ const Defail = () => {
 
         <Image
           style={styles.pointImage}
-          source={{ uri: "https://i.picsum.photos/id/805/300/200.jpg" }}
+          source={{ uri: point.image_url }}
         ></Image>
 
         <Text style={styles.pointName}>{point.name}</Text>
