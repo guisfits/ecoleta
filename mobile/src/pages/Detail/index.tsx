@@ -1,8 +1,48 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Feather as Icon, FontAwesome } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import { RectButton } from 'react-native-gesture-handler'
 
 const Defail = () => {
-  return <View></View>
+  const navigation = useNavigation();
+
+  function handlerNavigateBack() {
+    navigation.goBack();
+  }
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={handlerNavigateBack}>
+          <Icon name="arrow-left" size={20} color="#34cd09" ></Icon>
+        </TouchableOpacity>
+
+        <Image
+          style={styles.pointImage}
+          source={{ uri: "https://i.picsum.photos/id/805/300/200.jpg" }}
+        ></Image>
+
+        <Text style={styles.pointName}>Mercado do Joao</Text>
+        <Text style={styles.pointItems}>Lampadas, Oleo de Cozinha</Text>
+
+        <View style={styles.address}>
+          <Text style={styles.addressTitle}>Endereco</Text>
+          <Text style={styles.addressContent}>Leontina Pascoalotti, Tatui-SP</Text>
+        </View>
+      </View>
+      <View style={styles.footer}>
+        <RectButton style={styles.button} onPress={() => { }}>
+          <FontAwesome name="whatsapp" size={20} color="#FFF" />
+          <Text style={styles.buttonText}>Whatsapp</Text>
+        </RectButton>
+        <RectButton style={styles.button} onPress={() => { }}>
+          <Icon name="mail" size={20} color="#FFF" />
+          <Text style={styles.buttonText}>E-mail</Text>
+        </RectButton>
+      </View>
+    </SafeAreaView>
+  )
 }
 
 export default Defail;
@@ -11,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 32,
-    paddingTop: 20,
+    paddingTop: 20
   },
 
   pointImage: {

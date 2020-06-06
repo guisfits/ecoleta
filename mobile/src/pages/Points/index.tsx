@@ -44,7 +44,7 @@ const Points = () => {
             }}
           >
             <View style={styles.mapMarkerContainer}>
-              <Image style={styles.mapMarkerImage} source={{ uri: "https://picsum.photos/id/237/200/300" }} />
+              <Image style={styles.mapMarkerImage} source={{ uri: "https://i.picsum.photos/id/805/300/200.jpg" }} />
               <Text style={styles.mapMarkerContainer}>Mercado</Text>
             </View>
           </Marker>
