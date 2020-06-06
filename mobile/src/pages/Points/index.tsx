@@ -1,15 +1,20 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Constants from 'expo-constants'
 import { Feather as Icon } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import MapView from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
+import { SvgUri } from 'react-native-svg'
 
 const Points = () => {
   const navigation = useNavigation();
 
   function handlerNavigateBack() {
     navigation.goBack();
+  }
+
+  function handlerNavigateToDetail() {
+    navigation.navigate("Detail");
   }
 
   return (
@@ -21,7 +26,72 @@ const Points = () => {
       <Text style={styles.title}>Bem vindo.</Text>
 
       <View style={styles.mapContainer}>
-        <MapView style={styles.map}></MapView>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: -23.3463357,
+            longitude: -47.8691143,
+            latitudeDelta: 0.014,
+            longitudeDelta: 0.014
+          }}
+        >
+          <Marker
+            style={styles.mapMarker}
+            onPress={handlerNavigateToDetail}
+            coordinate={{
+              latitude: -23.3463357,
+              longitude: -47.8691143,
+            }}
+          >
+            <View style={styles.mapMarkerContainer}>
+              <Image style={styles.mapMarkerImage} source={{ uri: "https://picsum.photos/id/237/200/300" }} />
+              <Text style={styles.mapMarkerContainer}>Mercado</Text>
+            </View>
+          </Marker>
+        </MapView>
+      </View>
+
+      <View style={styles.itemsContainer} >
+        <ScrollView
+          horizontal
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 20 }}
+        >
+          <TouchableOpacity style={styles.item} onPress={() => { }}>
+            <SvgUri width={42} height={42} uri="http://192.168.0.10:3333/public/lampadas.svg"></SvgUri>
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.item} onPress={() => { }}>
+            <SvgUri width={42} height={42} uri="http://192.168.0.10:3333/public/lampadas.svg"></SvgUri>
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.item} onPress={() => { }}>
+            <SvgUri width={42} height={42} uri="http://192.168.0.10:3333/public/lampadas.svg"></SvgUri>
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.item} onPress={() => { }}>
+            <SvgUri width={42} height={42} uri="http://192.168.0.10:3333/public/lampadas.svg"></SvgUri>
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.item} onPress={() => { }}>
+            <SvgUri width={42} height={42} uri="http://192.168.0.10:3333/public/lampadas.svg"></SvgUri>
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.item} onPress={() => { }}>
+            <SvgUri width={42} height={42} uri="http://192.168.0.10:3333/public/lampadas.svg"></SvgUri>
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.item} onPress={() => { }}>
+            <SvgUri width={42} height={42} uri="http://192.168.0.10:3333/public/lampadas.svg"></SvgUri>
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
     </View>
   )
