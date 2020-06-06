@@ -1,20 +1,21 @@
 import { Request, Response } from "express";
 import knex from "../database/connection";
 
+function parseItemIds(items: string): number[] {
+  return String(items).split(",").map((item) => Number(item.trim()));
+}
+
 export default class PointsController {
   async index(request: Request, response: Response) {
     const { city, uf, items } = request.query;
-    const parsedItems = String(items)
-      .split(",")
-      .map((item) => Number(item.trim()));
 
-    const points = await knex("points")
-      .join("points-items", "points.id", "=", "points-items.point_id")
-      .whereIn("points-items.item_id", parsedItems)
-      .where("city", String(city))
-      .where("uf", String(uf))
-      .distinct()
-      .select("points.*");
+    const query = knex("points").join("points-items", "points.id", "=", "points-items.point_id");
+
+    if (items) query.whereIn("points-items.item_id", parseItemIds(String(items)));
+    if (city) query.where("city", String(city));
+    if (uf) query.where("uf", String(uf));
+
+    const points = await query.distinct().select("points.*");
 
     return response.json(points);
   }
