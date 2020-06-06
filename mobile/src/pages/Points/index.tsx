@@ -1,17 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
-import Constants from 'expo-constants'
 import { Feather as Icon } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import Constants from 'expo-constants'
+import * as Location from "expo-location"
+import React, { useEffect, useState } from 'react'
+import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import { SvgUri } from 'react-native-svg'
+
+import { Item, Point } from '../../models/api-responses'
 import api from '../../services/api'
-import { Item } from '../../models/api-responses';
 
 const Points = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const [points, setPoints] = useState<Point[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [initialPostion, setInitialPosition] = useState<[number, number]>([0, 0])
+
   const navigation = useNavigation();
+
+  useEffect(() => {
+    async function loadPosition() {
+      const { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('oooops', 'Precisamos de sua permissao para obter a localizacao')
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+      const { latitude, longitude } = location.coords;
+
+      setInitialPosition([latitude, longitude]);
+    }
+    loadPosition();
+  }, [])
 
   useEffect(() => {
     api.get("items").then(response => {
@@ -19,12 +39,24 @@ const Points = () => {
     });
   }, []);
 
+  useEffect(() => {
+    api.get<Point[]>('points', {
+      params: {
+        city: 'Tatui',
+        uf: 'SP',
+        items: [1, 2, 3, 4, 5, 6]
+      }
+    }).then(response => {
+      setPoints(response.data);
+    })
+  })
+
   function handlerNavigateBack() {
     navigation.goBack();
   }
 
-  function handlerNavigateToDetail() {
-    navigation.navigate("Detail");
+  function handlerNavigateToDetail(id: number) {
+    navigation.navigate("Detail", { point_id: id });
   }
 
   function handlerSelectItem(item: Item) {
@@ -51,29 +83,34 @@ const Points = () => {
       <Text style={styles.title}>Bem vindo.</Text>
 
       <View style={styles.mapContainer}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: -23.3463357,
-            longitude: -47.8691143,
-            latitudeDelta: 0.014,
-            longitudeDelta: 0.014
-          }}
-        >
-          <Marker
-            style={styles.mapMarker}
-            onPress={handlerNavigateToDetail}
-            coordinate={{
-              latitude: -23.3463357,
-              longitude: -47.8691143,
+        {initialPostion[0] !== 0 && (
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: initialPostion[0],
+              longitude: initialPostion[1],
+              latitudeDelta: 0.014,
+              longitudeDelta: 0.014
             }}
           >
-            <View style={styles.mapMarkerContainer}>
-              <Image style={styles.mapMarkerImage} source={{ uri: "https://i.picsum.photos/id/805/300/200.jpg" }} />
-              <Text style={styles.mapMarkerContainer}>Mercado</Text>
-            </View>
-          </Marker>
-        </MapView>
+            {points.map(point => (
+              <Marker
+                key={point.id}
+                style={styles.mapMarker}
+                onPress={() => handlerNavigateToDetail(point.id)}
+                coordinate={{
+                  latitude: +point.latitude,
+                  longitude: +point.longitude,
+                }}
+              >
+                <View style={styles.mapMarkerContainer}>
+                  <Image style={styles.mapMarkerImage} source={{ uri: point.image }} />
+                  <Text style={styles.mapMarkerContainer}>{point.name}</Text>
+                </View>
+              </Marker>
+            ))}
+          </MapView>
+        )}
       </View>
 
       <View style={styles.itemsContainer} >
