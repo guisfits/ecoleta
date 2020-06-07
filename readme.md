@@ -18,4 +18,4 @@ Nunca tinha feito nada com _React_ antes. Achei bem maneiro e agora entendo porq
 
 ## Mobile
 
-Também nunca tinha feito nada pra mobile, foi uma experiência bem legal. Aprendi conceitos básicos do _react-native_ e como ele funciona, os componentes base para criar interfaces, a trabalhar com fontes e a utilizar o _expo_.
+Também nunca tinha feito nada pra mobile, foi uma experiência bem legal. Aprendi, além dos conceitos comuns com o _react.js_, conceitos básicos do _react-native_ e como ele funciona, os componentes base para criar interfaces, a trabalhar com fontes, mapas e ícones e a utilizar o _expo_.
