@@ -18,4 +18,4 @@ Nunca tinha feito nada com _React_ antes. Achei bem maneiro e agora entendo porq
 
 ## Mobile
 
-Fazia muito tempo que não construia nada para mobile, foi uma experiência bem legal utilizar react-native, de todos que conheci este é o mais  fácil e prático. Aprendi, além dos conceitos comuns com o _react.js_, conceitos básicos do _react-native_ e como ele funciona, a utilizar o _expo_, os componentes base para criação de interfaces e a trabalhar com fontes, mapas e ícones.
+Fazia muito tempo que não construia nada para mobile e react-native foi a maneira mais fácil e prática que já tive até hoje. Aprendi, além dos conceitos comuns com o _react.js_, conceitos básicos do _react-native_ e como ele funciona, a utilizar o _expo_, os componentes base para criação de interfaces e a trabalhar com fontes, mapas e ícones.
