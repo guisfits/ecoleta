@@ -14,7 +14,7 @@ Realizei uma configuração extra no _Typescript_ para conseguir realizar o debu
 
 ## Web
 
-Nunca tinha feito nada com _React_ antes. Achei bem maneiro e agora entendo porque é tão amada por muitos desenvolvedores. Aprendi a criar componentes, sistema de roteamento, realizar chamadas a api com _axios_, gerenciar estado, obter parâmetros das rotas, realizar upload de arquivos, trabalhar com ícones e imagens, trabalhar com mapas e obter localização do usuário.
+Nunca tinha feito nada com _React_ antes. Achei bem maneiro e agora entendo porque é tão amada por muitos desenvolvedores. Aprendi como o React trabalha com componentização, sistema de roteamento, realizar chamadas a api com _axios_, gerenciar estado, obter parâmetros das rotas, realizar upload de arquivos, trabalhar com ícones e imagens, trabalhar com mapas e obter localização do usuário.
 
 ## Mobile
 
